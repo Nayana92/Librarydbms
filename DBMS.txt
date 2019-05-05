@@ -1,0 +1,227 @@
+create table Branch(
+           branchId 		integer NOT NULL,
+           name        		char(20),
+           address  		char(50),
+           phoneNumber 	char(10),
+           Primary key          (branchId)
+        );
+insert into branch values(001,'Cupertino','10800 Torre Ave','4084461677'),
+                          (002,'Milpitas','160 N Main St','4082621171'),
+                          (003,'Palo Alto','270 Forest Avenue','6503292516'),
+                          (004,'San Jose','150 E San Fernando St','4088082300'),
+                          (005,'Santa Clara','2635 Homestead Rd','4086152900'),
+                          (006,'Sunnyvale','665 W Olive Ave','4087307300');
+
+create table employee(
+         employeeId 		  integer NOT NULL,
+         Name 	  		  char(20),
+         Address     		  char(50),
+         PhoneNumber           char(10),
+         SSN 			  char(9),
+         salary                         float,
+         Primary key              (employeeId)
+      );
+insert into employee values(001,'John Delpi','1122 Torree Ave','1234123412','111111111',2000.0),
+                            (002,'Jane Gandalf','21 N main St','4321432143','222222222',1900.0),
+                            (003, 'Sherlock Davis','221B Baker St','2345234554','333333333',2500.0),
+                            (004,'Sheldon Cooper','121 California Ave','9876987645','444444444',2600.0),
+                            (005,'James Watson','221 Bilmo Ave','3453456781','555555555',2200.0),
+                            (006,'Mycroft Castle','345 Fremont Ave','2223456352','666666666',2600.0),
+                            (007,'Lucy Simpson','340 Market Rd','1234567890','777777777',2100.0),
+                            (008,'Monica Smith','690 Yosemite Ave','8908907651','888888888',2600.0),
+                            (009,'Natasha Malcom','5521 Narnia Way','9878765431','999999999',2500.0),
+                            (010,'Oliver Macqueen','429 Walburton St','9803457192','123456789',1900.0);
+
+create table works_in(
+         employeeId			integer NOT NULL,
+         branchId           integer NOT NULL,
+         since              date,
+         Primary key           		(employeeId, branchId),
+         Foreign key(employeeId)    references employee(employeeId),
+         Foreign key(branchId)      references branch(branchId)
+       );
+insert into works_in values(001,001,'2015-01-01'),
+                           (002,001,'2016-05-20'),
+                           (003,002,'2017-06-15'),
+                           (004,002,'2011-11-04'),
+                           (005,003,'2018-02-02'),
+                           (006,004,'2016-10-10'),
+                           (007,004,'2018-02-10'),
+                           (008,005,'2017-05-15'),
+                           (009,006,'2019-01-01'),
+                           (010,006,'2017-09-07');
+                           
+                           
+create table Media(
+         mediaId 		integer NOT NULL,
+         type           char(20),
+         Primary key     (mediaId)
+     );
+ 
+insert into Media values ('1001', 'dvd'),
+                                 ('1002', 'blueray'),
+                                 ('1003', 'dvd'),
+                                 ('1004', 'dvd'),
+                                 ('1005', 'blueray'),
+                                 ('1006', 'dvd'),
+                                 ('1007', 'blueray'),
+                                 ('1008', 'dvd'),
+                                 ('2001','Paperback'),
+                                 ('2002','Paperback'),
+                                 ('20021','Hardcover'),
+                                 ('20022','Ebook'),
+                                 ('2003','Hardcover'),
+                                 ('2004','Paperback'),
+                                 ('2005','Hardcover'),
+                                 ('2006','Hardcover'),
+                                 ('2007','Hardcover'),
+                                 ('2008','Paperback'),
+                                 ('2009','Ebook'),
+                                 ('2010','Paperback'),
+                                 ('2011','Ebook'),
+                                 ('2012','Ebook'),
+                                 ('2013','Ebook'),
+                                 ('20131','Paperback'),
+                                 ('2014','Paperback'),
+                                 ('2015','Ebook'); 
+                              
+create table book(
+         mediaId            integer NOT NULL,
+         ISBN               char(20) NOT NULL,
+         title              char(50),
+         author             char(20),
+         year               year,
+         Format             char(10),
+         Primary Key        (ISBN),
+         Foreign Key         (mediaId) references Media(mediaId)
+    );
+    
+
+insert into book values(2001,9788426405166,'Educated: A Memoir','Tara Westover',2018,'Paperback'),
+                        (2002,9780439023481,'The Hunger Games','Suzanne Collins',2010,'Paperback'),
+                        (20021,9780439023482,'The Hunger Games','Suzanne Collins',2010,'Hardcover'),
+                        (20022,9780439023483,'The Hunger Games','Suzanne Collins',2010,'Ebook'),
+                        (2003,9780804139021,'The Martian: A Novel','Andy Weir',2014,'Hardcover'),
+                        (2004,9780142424179,'The Fault in Our Stars','John Green',2014,'Paperback'),
+                        (2005,9780062387240,'Divergent','Veronica Roth',2011,'Hardcover'),
+                        (2006,9780307588371,'Gone Girl','Gillian Flynn',2012,'Hardcover'),
+                        (2007,9781595620156,'StrengthsFinder 2.0','Tom Rath',2007,'Hardcover'),
+                        (2008,9781250080400,'The Nightingale: A Novel','Kristin Hannah',2015,'Paperback'),
+                        (2009,9780061120084,'To Kill a Mockingbird','Harper Lee',1960,'Ebook'),
+                        (2010,9780061120085,'To Kill a Mockingbird','Harper Lee',1960,'Paperback'),
+                        (2011,9780385474542,'Things Fall Apart','Chinua Achebe',1958,'Ebook'),
+                        (2012,9781593080181,'Moby-Dick Reprint','Herman Melville',2010, 'Ebook'),
+                        (2013,9781451626650,'Catch-22','Joseph Heller',1961,'Ebook'),
+                        (20131,2009781451626651,'Catch-22','Joseph Heller',1961,'Paperback'),
+                        (2014,9780440585732,'Tell Me a Riddle','Tillie Olsen',1956,'Paperback'),
+                        (2015,9780141439518,'Pride and Prejudice','Jane Austen',2005,'Ebook');                      
+        
+create table video(
+         mediaId			integer NOT NULL,
+         title              char(50),
+         genre              char(50),
+         director           char(20),
+         releaseDate        date,
+         rating             float,
+         Foreign Key        (mediaId) references Media(mediaId)
+     );
+     
+insert into video values('1001','The Fog of War','War/Historical Documentary','Errol Morris','2003-12-19',8.2),
+                              ('1002','Gone Girl','Drama/Mystery','David Fincher','2014-10-03',8.1),
+                              ('1003','To Kill a Mockingbird','Drama/Mystery','Robert Mulligan','1962-12-25',8.3),
+                              ('1004','The Martian','Drama/ENTERTAINMENT','Ridley Scott','2015-10-02',8),
+                              ('1005' ,'Pride & Prejudice','Drama/Romance','Joe Wright','2005-11-11',7.8),
+                              ('1006','The Godfather','Drama/Crime','Francis Ford Coppola','1972-03-24',9.2),
+                              ('1007', 'The Lord of the Rings: The Return of the King','Drama/Fantasy','Peter Jackson','2003-12-17',8.9),
+                              ('1008', 'Willy Wonka & the Chocolate Factory','Fantasy/Comedy music','Mel Stuart','1971-06-30',7.8);
+                              
+create table mediaLocation(
+           mediaId				integer NOT NULL,
+           branchId				integer NOT NULL,
+           Floor					integer,
+           Shelf					char(10),
+           Primary key				(mediaId, branchId),
+           Foreign key(mediaId) references Media(mediaId),
+           Foreign key(branchId) references branch(branchId)
+        );
+
+insert into mediaLocation values('1001',001,1,'3A'),
+                                 ('1002',002,2,'2B'),
+                                 ('1003',003,1,'7H'),
+                                 ('1004',001,1, '2H'),
+                                 ('1005',004,2,'5F'),
+                                 ('1006',005,1,'1F'),
+                                 ('1007',003,1,'2A'),
+                                 ('1008',003,1,'2A'),
+                                 ('2001',005,2,'5C'),
+                                 ('2002',006,1,'3B'),
+                                 ('20021',001,1,'1I'),
+                                 ('20022',002,2,'5T'),
+                                 ('2003',002,1,'3S'),
+                                 ('2004',006,2,'4D'),
+                                 ('2005',005,1,'2A'),
+                                 ('2006',004,2,'6T'),
+                                 ('2007',004,1,'6S'),
+                                 ('2008',003,1,'1S'),
+                                 ('2009',005,2,'4V'),
+                                 ('2010',002,2,'2A'),
+                                 ('2011',005,1,'2M'),
+                                 ('2012',006,2,'3R'),
+                                 ('2013',003,1,'4T'),
+                                 ('20131',005,1,'3C'),
+                                 ('2014',002,1,'5B'),
+                                 ('2015',003,1,'2A');
+                              
+create table member(
+          memberId			integer,
+          branchId			integer NOT NULL,
+          Name				char(20),
+          Address			char(50),
+          phoneNumber       char(10),
+          finesDue          float,
+          Primary Key       (memberId),
+          Foreign Key(branchId)     references branch(branchId) 		
+     );
+     
+insert into member values(7001,001,'Maxim Cole','123 Hollywood Ave','1233456678',0.0),
+                          (7002,002,'Crissy Homes','13 Orchid Ave','1233456699',2.0),
+                          (7003,001,'Joseph Smith','99 N Crater Way','1887456678',0.0),
+                          (7004,003,'Jacob Prestly','1 Macormic Ave','9993456678',0.0),
+                          (7005,001,'Maxim Cole','76 Reed Ave','1233456678',0.0),
+                          (7006,005,'Sonya Ramsay','11 Cobbler St','8989897678',5.0),
+                          (7007,004,'Gerrard Freeman','5 Royal Way','4444456678',7.0),
+                          (7008,006,'Bucky Ross','980 S Coleman Ave','9997256678',3.0),
+                          (7009,004,'Richie Rich','1124 Rich Drive','3213256678',0.0),
+                          (7010,006,'Chandler Bing','11 Goldcoast Ave','9876543210',3.0);
+
+create table check_out(
+         mediaId				integer NOT NULL,
+         memberId               integer NOT NULL,
+         issuedBy				char(20),
+         borrowFrom             date,
+         borrowTo               date,
+         Primary Key           	(mediaId, memberId),
+         Foreign key(mediaId) references    Media(mediaId),
+         Foreign key(memberId) references member(memberId)
+      );
+      
+insert into check_out values(1007,7009,'Jane Gandalf','2018-07-1','2018-07-15'),
+                            (20022,7001,'Sheldon Cooper','2018-09-10','2018-10-25'),
+                            (2003,7001,'James Watson','2019-05-5','2019-05-20'),
+                            (1006,7009,'Oliver Macqueen','2018-06-5','2018-06-20'),
+                            (2006,7009,'Oliver Macqueen','2018-06-5','2018-06-20'),
+                            (2011,7009,'Oliver Macqueen','2018-08-5','2019-09-20');
+                            
+create table reserve_book(
+         mediaId				  integer NOT NULL,
+         memberId                 integer NOT NULL,
+         queue					  integer,
+         Primary Key              (mediaId, memberId),
+         Foreign key(mediaId) references    Media(mediaId),
+         Foreign key(memberId) references member(memberId)
+      );
+      
+insert into reserve_book values(20022,7006,1),
+                               (20022,7005,2),
+                               (2011,7010,1),
+                               (1006,7002,1);
