@@ -1,0 +1,43 @@
+Queries : 
+*Get the Library inventory of type of resource available
+select m.type, count(*)
+from Media M
+group by m.type
+
+*Name of memebers that have fines due at their branch
+select m.Name,m.finesDue,b.name
+from member m, branch b
+where m.branchid = b.branchId && m.finesDue > 0.0
+
+*The fines due at each branch
+select b.name, sum(m.finesDue)
+from member m, branch b
+where m.branchid = b.branchId 
+group by m.finesDue;
+
+*Movie rating  > 8
+select * from video where rating > 8;
+
+*Find the branch at the library where 'The Godfather' movie is rented
+select b.name 
+from branch b 
+where b.branchid in(select ml.branchId
+                    from mediaLocation ml , video v
+                    where ml.mediaId = v.mediaId and v.title = 'The Godfather'
+          );
+
+
+
+
+
+
+
+
+
+
+select b.name 
+from branch b 
+where b.branchid in (select ml.branchId 
+                     from video v , mediaLocation ml,
+                     where v.mediaId = ml.mediaId and v.title='The Godfather');
+
